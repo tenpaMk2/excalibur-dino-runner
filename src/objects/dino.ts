@@ -15,8 +15,8 @@ export class Dino extends Actor {
     super({
       x: x,
       y: y,
-      width: 18,
-      height: 18,
+      width: 14,
+      height: 14,
       collisionType: CollisionType.Active,
     });
   }
