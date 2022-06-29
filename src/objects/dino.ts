@@ -12,6 +12,8 @@ import config from "../config";
 import { Resources } from "../resource";
 
 export class Dino extends Actor {
+  private isLanding: boolean = false;
+
   constructor(x: number, y: number) {
     super({
       x: x,
@@ -84,6 +86,10 @@ export class Dino extends Actor {
 
     underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
       Resources.dinoLanding.play();
+      this.isLanding = true;
+    });
+    underBox.on("collisionend", (event: Events.CollisionEndEvent): void => {
+      this.isLanding = false;
     });
 
     const rightBox = new Actor({
@@ -109,6 +115,6 @@ export class Dino extends Actor {
   }
 
   jump(): void {
-    this.vel.y = -config.dinoJumpVel;
+    if (this.isLanding) this.vel.y = -config.dinoJumpVel;
   }
 }
