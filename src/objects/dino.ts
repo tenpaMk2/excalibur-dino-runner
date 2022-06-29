@@ -76,7 +76,7 @@ export class Dino extends Actor {
 
     const underBox = new Actor({
       y: 7,
-      width: 1,
+      width: 7,
       height: 1,
       collisionType: CollisionType.Passive,
       collisionGroup: collisionGroup,
@@ -95,7 +95,7 @@ export class Dino extends Actor {
     const rightBox = new Actor({
       x: 7,
       width: 1,
-      height: 1,
+      height: 7,
       collisionType: CollisionType.Passive,
       collisionGroup: collisionGroup,
     });
