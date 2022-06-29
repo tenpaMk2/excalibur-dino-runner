@@ -1,4 +1,12 @@
-import { Engine, LockCameraToActorStrategy, Scene } from "excalibur";
+import {
+  Color,
+  Engine,
+  Font,
+  LockCameraToActorStrategy,
+  Scene,
+  ScreenElement,
+  Text,
+} from "excalibur";
 import config from "../config";
 import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
@@ -32,6 +40,21 @@ export class GameScene extends Scene {
       tileHeight * mapHeight
     );
     _engine.add(goal);
+
+    const tempCredits = new ScreenElement({
+      x: 0,
+      y: _engine.drawHeight - 10,
+    });
+    tempCredits.graphics.use(
+      new Text({
+        text: "<Credits> dino graphic -> @ArksDigital, mapchip -> kenney.nl",
+        color: Color.White,
+        font: new Font({
+          size: 24,
+        }),
+      })
+    );
+    _engine.add(tempCredits);
 
     this.camera.addStrategy(new LockCameraToActorStrategy(dino));
     this.camera.zoom = config.zoom;
