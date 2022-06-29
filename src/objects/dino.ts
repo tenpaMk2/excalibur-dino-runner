@@ -1,6 +1,7 @@
 import {
   Actor,
   Animation,
+  CollisionGroupManager,
   CollisionType,
   Engine,
   Events,
@@ -63,13 +64,43 @@ export class Dino extends Actor {
 
     this.graphics.use(animation);
 
-    this.on("collisionstart", (event: Events.CollisionStartEvent): void => {
-      if (event.contact.normal.equals(Vector.Up)) {
-        Resources.dinoLanding.play();
-      }
+    this.acc = Vector.Right.scale(config.dinoXAcc);
+
+    this.generateHitBox(engine);
+  }
+
+  generateHitBox(engine: Engine): void {
+    const collisionGroup = CollisionGroupManager.create("dino");
+
+    const underBox = new Actor({
+      y: 7,
+      width: 1,
+      height: 1,
+      collisionType: CollisionType.Passive,
+      collisionGroup: collisionGroup,
+    });
+    this.addChild(underBox);
+    engine.add(underBox);
+
+    underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
+      Resources.dinoLanding.play();
     });
 
-    this.acc = Vector.Right.scale(config.dinoXAcc);
+    const rightBox = new Actor({
+      x: 7,
+      width: 1,
+      height: 1,
+      collisionType: CollisionType.Passive,
+      collisionGroup: collisionGroup,
+    });
+    this.addChild(rightBox);
+    engine.add(rightBox);
+
+    rightBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
+      Resources.dinoBlocked.play();
+    });
+
+    this.body.group = collisionGroup;
   }
 
   onPreUpdate(engine: Engine): void {
