@@ -7,6 +7,6 @@ export default {
   gravity: 200,
   dinoXAcc: 100,
   dinoMaxXSpeed: 100,
-  dinoJumpVel: 100,
+  dinoJumpVel: 150,
   zoom: 2,
 };
