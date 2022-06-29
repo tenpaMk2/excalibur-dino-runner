@@ -1,5 +1,6 @@
 import { Engine, LockCameraToActorStrategy, Scene } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
+import config from "../config";
 import { Dino } from "../objects/dino";
 import { Resources } from "../resource";
 
@@ -15,6 +16,6 @@ export class GameScene extends Scene {
     });
 
     this.camera.addStrategy(new LockCameraToActorStrategy(dino));
-    this.camera.zoom = 3;
+    this.camera.zoom = config.zoom;
   }
 }
