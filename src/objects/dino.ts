@@ -114,8 +114,7 @@ export class Dino extends Actor {
       this.vel.x < config.dinoMaxXSpeed ? this.vel.x : config.dinoMaxXSpeed;
   }
 
-  jump(powerTime: number): void {
-    if (this.isLanding)
-      this.vel.y = (-config.dinoJumpVel * powerTime) / config.dinoMaxPowerTime;
-  }
+  jump = (power: number): void => {
+    if (this.isLanding) this.vel.y = -config.dinoJumpVel * power;
+  };
 }

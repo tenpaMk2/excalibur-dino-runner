@@ -1,7 +1,17 @@
-import { Engine, LockCameraToActorStrategy, Scene, Timer } from "excalibur";
+import {
+  Actor,
+  Canvas,
+  CollisionType,
+  Color,
+  Engine,
+  LockCameraToActorStrategy,
+  Scene,
+  Vector,
+} from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
 import config from "../config";
 import { Dino } from "../objects/dino";
+import { TapUI } from "../objects/tap-ui";
 import { Resources } from "../resource";
 
 export class GameScene extends Scene {
@@ -11,25 +21,33 @@ export class GameScene extends Scene {
     const dino = new Dino(0, 200);
     _engine.add(dino);
 
-    let timer = new Timer({
-      interval: config.dinoMaxPowerTime,
-      fcn: () => {
-        console.log("max power!!");
-      },
-    });
-    _engine.add(timer);
+    const tapUI = new TapUI(_engine);
+    tapUI.registerTapUpCallback(dino.jump);
 
-    _engine.input.pointers.primary.on("down", (event: PointerEvent): void => {
-      timer.start();
+    const powerGauge = new Actor({
+      pos: Vector.Zero,
+      radius: 100,
+      color: Color.Magenta,
+      collisionType: CollisionType.PreventCollision,
     });
-    _engine.input.pointers.primary.on("up", (event: PointerEvent): void => {
-      console.log(timer.timeElapsedTowardNextAction);
-      dino.jump(
-        timer.timeElapsedTowardNextAction === 0
-          ? config.dinoMaxPowerTime
-          : timer.timeElapsedTowardNextAction
-      );
-    });
+    _engine.add(powerGauge);
+    dino.addChild(powerGauge);
+
+    powerGauge.onPreUpdate = (_engine: Engine, _delta: number): void => {
+      const canvas = new Canvas({
+        cache: false,
+        height: 32,
+        width: 32,
+        draw: (ctx: CanvasRenderingContext2D) => {
+          ctx.strokeStyle = "chartreuse";
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(16, 16, 15, 0, Math.PI * 2 * tapUI.getTimerProgress(), false);
+          ctx.stroke();
+        },
+      });
+      powerGauge.graphics.use(canvas);
+    };
 
     this.camera.addStrategy(new LockCameraToActorStrategy(dino));
     this.camera.zoom = config.zoom;
