@@ -8,5 +8,6 @@ export default {
   dinoXAcc: 100,
   dinoMaxXSpeed: 100,
   dinoJumpVel: 150,
+  dinoMaxPowerTime: 1000,
   zoom: 2,
 };

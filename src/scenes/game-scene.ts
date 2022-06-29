@@ -1,4 +1,4 @@
-import { Engine, LockCameraToActorStrategy, Scene } from "excalibur";
+import { Engine, LockCameraToActorStrategy, Scene, Timer } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
 import config from "../config";
 import { Dino } from "../objects/dino";
@@ -11,8 +11,24 @@ export class GameScene extends Scene {
     const dino = new Dino(0, 200);
     _engine.add(dino);
 
+    let timer = new Timer({
+      interval: config.dinoMaxPowerTime,
+      fcn: () => {
+        console.log("max power!!");
+      },
+    });
+    _engine.add(timer);
+
     _engine.input.pointers.primary.on("down", (event: PointerEvent): void => {
-      dino.jump();
+      timer.start();
+    });
+    _engine.input.pointers.primary.on("up", (event: PointerEvent): void => {
+      console.log(timer.timeElapsedTowardNextAction);
+      dino.jump(
+        timer.timeElapsedTowardNextAction === 0
+          ? config.dinoMaxPowerTime
+          : timer.timeElapsedTowardNextAction
+      );
     });
 
     this.camera.addStrategy(new LockCameraToActorStrategy(dino));
