@@ -11,4 +11,6 @@ export default {
   dinoMaxPowerTime: 1000,
   zoom: 2,
   goalCol: 107,
+  reaperStartTime: 1000,
+  reaperSpeed: 90,
 };

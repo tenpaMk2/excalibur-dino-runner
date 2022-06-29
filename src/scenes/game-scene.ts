@@ -11,6 +11,7 @@ import config from "../config";
 import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
 import { PowerGauge } from "../objects/power-gauge";
+import { Reaper } from "../objects/reaper";
 import { TapUI } from "../objects/tap-ui";
 import { Resources } from "../resource";
 
@@ -18,7 +19,7 @@ export class GameScene extends Scene {
   onInitialize(_engine: Engine): void {
     Resources.tiledmap.addTiledMapToScene(this);
 
-    const dino = new Dino(0, 200);
+    const dino = new Dino(30, 200);
     _engine.add(dino);
 
     const tapUI = new TapUI(_engine);
@@ -55,6 +56,9 @@ export class GameScene extends Scene {
       })
     );
     _engine.add(tempCredits);
+
+    const reaper = new Reaper(0, 0, tileWidth, mapHeight);
+    _engine.add(reaper);
 
     this.camera.addStrategy(new LockCameraToActorStrategy(dino));
     this.camera.zoom = config.zoom;

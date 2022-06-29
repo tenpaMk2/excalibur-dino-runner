@@ -6,6 +6,7 @@ const dino = "./DinoSprites - vita.png";
 const dinoJump = "./open_002.ogg";
 const dinoLanding = "./select_006.ogg";
 const dinoBlocked = "./error_004.ogg";
+const mapchip = "./tiles_packed.png";
 
 export const Resources = {
   tiledmap: new TiledMapResource(tiledMapTmx),
@@ -13,4 +14,5 @@ export const Resources = {
   dinoJump: new Sound(dinoJump),
   dinoLanding: new Sound(dinoLanding),
   dinoBlocked: new Sound(dinoBlocked),
+  mapchip: new ImageSource(mapchip),
 };
