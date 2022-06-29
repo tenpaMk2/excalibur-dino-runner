@@ -10,4 +10,5 @@ export default {
   dinoJumpVel: 150,
   dinoMaxPowerTime: 1000,
   zoom: 2,
+  goalCol: 107,
 };
