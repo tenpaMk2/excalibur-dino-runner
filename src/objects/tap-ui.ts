@@ -33,8 +33,8 @@ export class TapUI {
     this.tapUpCallback = callback;
   }
 
-  getTimerProgress() {
+  getTimerProgress = (): number => {
     if (!this.isAccumulatingPower) return 0;
     return 1 - this.timer.timeToNextAction / config.dinoMaxPowerTime;
-  }
+  };
 }
