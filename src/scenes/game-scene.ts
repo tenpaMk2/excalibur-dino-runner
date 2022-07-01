@@ -71,6 +71,7 @@ export class GameScene extends Scene {
 
     this.reaper = new Reaper(0, 0, tileWidth, mapHeight);
     _engine.add(this.reaper);
+    this.reaper.registerSlashCallback(this.dino.slashed);
 
     this.resetter = new Resetter(_engine.drawWidth - 4, 24);
     _engine.add(this.resetter);

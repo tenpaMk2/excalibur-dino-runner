@@ -21,6 +21,7 @@ export class Reaper extends Actor {
   deathScreen: ScreenElement | null = null;
   deathMessage: ScreenElement | null = null;
   engine!: Engine;
+  slashCallback: (() => void) | null = null;
 
   constructor(
     private x: number,
@@ -74,6 +75,10 @@ export class Reaper extends Actor {
     this.on("collisionstart", (event: CollisionStartEvent): void => {
       if (!(event.other instanceof Dino)) return;
       this.emitDeathMessage(engine);
+      if (!this.slashCallback)
+        throw Error("Have not registered slash callback!!");
+      this.slashCallback();
+      this.vel = Vector.Zero;
     });
   }
 
@@ -118,5 +123,9 @@ export class Reaper extends Actor {
     this.initSchedule(this.engine);
     if (this.deathScreen) this.deathScreen.kill();
     if (this.deathMessage) this.deathMessage.kill();
+  }
+
+  registerSlashCallback(callback: () => void) {
+    this.slashCallback = callback;
   }
 }

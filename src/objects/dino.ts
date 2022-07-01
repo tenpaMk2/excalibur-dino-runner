@@ -124,5 +124,10 @@ export class Dino extends Actor {
   reset() {
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
+    this.acc = Vector.Right.scale(config.dinoXAcc);
   }
+
+  slashed = (): void => {
+    this.acc = Vector.Zero;
+  };
 }
