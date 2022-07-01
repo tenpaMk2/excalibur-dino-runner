@@ -13,4 +13,5 @@ export default {
   goalCol: 107,
   reaperStartTime: 1000,
   reaperSpeed: 90,
+  reaperWidth: 9,
 };

@@ -32,7 +32,7 @@ export class Reaper extends Actor {
     super({
       x: x,
       y: y,
-      width: widthHeight,
+      width: config.reaperWidth,
       height: widthHeight * row,
       anchor: Vector.Zero,
       collisionType: CollisionType.Fixed,
