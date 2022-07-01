@@ -60,7 +60,7 @@ export class GameScene extends Scene {
     });
     this.tempCredits.graphics.use(
       new Text({
-        text: "<Credits> dino graphic -> @ArksDigital, mapchip -> kenney.nl",
+        text: "<Credits> dino graphic -> @ArksDigital, mapchip and sound -> kenney.nl",
         color: Color.White,
         font: new Font({
           size: 24,
