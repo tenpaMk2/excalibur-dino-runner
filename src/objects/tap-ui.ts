@@ -11,7 +11,7 @@ export class TapUI {
     this.timer = new Timer({
       interval: config.dinoMaxPowerTime,
     });
-    engine.add(this.timer);
+    engine.currentScene.add(this.timer);
 
     engine.input.pointers.primary.on("down", (event: PointerEvent): void => {
       this.timer.start();

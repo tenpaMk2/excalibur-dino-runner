@@ -91,7 +91,7 @@ export class Reaper extends Actor {
       anchor: Vector.Zero,
     });
     this.deathScreen.graphics.opacity = 0.2;
-    engine.add(this.deathScreen);
+    engine.currentScene.add(this.deathScreen);
 
     this.deathMessage = new ScreenElement({
       x: engine.halfDrawWidth * config.zoom, // bug?
@@ -108,7 +108,7 @@ export class Reaper extends Actor {
         }),
       })
     );
-    engine.add(this.deathMessage);
+    engine.currentScene.add(this.deathMessage);
   }
 
   private initSchedule(engine: Engine) {

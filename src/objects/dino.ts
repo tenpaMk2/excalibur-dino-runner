@@ -34,7 +34,7 @@ export class Dino extends Actor {
 
   playRunAnimation() {
     const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.dino,
+      image: Resources.vita,
       grid: {
         rows: 1,
         columns: 24,
@@ -77,7 +77,7 @@ export class Dino extends Actor {
 
   playCryAnimation() {
     const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.dino,
+      image: Resources.vita,
       grid: {
         rows: 1,
         columns: 24,
@@ -120,7 +120,7 @@ export class Dino extends Actor {
       collisionGroup: collisionGroup,
     });
     this.addChild(underBox);
-    engine.add(underBox);
+    engine.currentScene.add(underBox);
 
     underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
       Resources.dinoLanding.play();
@@ -138,7 +138,7 @@ export class Dino extends Actor {
       collisionGroup: collisionGroup,
     });
     this.addChild(rightBox);
-    engine.add(rightBox);
+    engine.currentScene.add(rightBox);
 
     rightBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
       Resources.dinoBlocked.play();

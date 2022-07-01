@@ -49,7 +49,7 @@ export class Goal extends Trigger {
       anchor: Vector.Zero,
     });
     this.clearScreen.graphics.opacity = 0.2;
-    engine.add(this.clearScreen);
+    engine.currentScene.add(this.clearScreen);
 
     this.clearMessage = new ScreenElement({
       x: engine.halfDrawWidth * config.zoom, // bug?
@@ -66,7 +66,7 @@ export class Goal extends Trigger {
         }),
       })
     );
-    engine.add(this.clearMessage);
+    engine.currentScene.add(this.clearMessage);
   }
 
   reset() {

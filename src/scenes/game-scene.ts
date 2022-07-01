@@ -32,13 +32,13 @@ export class GameScene extends Scene {
     Resources.tiledmap.addTiledMapToScene(this);
 
     this.dino = new Dino(30, 200);
-    _engine.add(this.dino);
+    this.add(this.dino);
 
     this.tapUI = new TapUI(_engine);
     this.tapUI.registerTapUpCallback(this.dino.jump);
 
     this.powerGauge = new PowerGauge();
-    _engine.add(this.powerGauge);
+    this.add(this.powerGauge);
     this.powerGauge.registerGetProgressCallback(this.tapUI.getTimerProgress);
     this.dino.addChild(this.powerGauge);
 
@@ -52,7 +52,7 @@ export class GameScene extends Scene {
       tileWidth,
       tileHeight * mapHeight
     );
-    _engine.add(this.goal);
+    this.add(this.goal);
 
     this.tempCredits = new ScreenElement({
       x: 0,
@@ -67,14 +67,14 @@ export class GameScene extends Scene {
         }),
       })
     );
-    _engine.add(this.tempCredits);
+    this.add(this.tempCredits);
 
     this.reaper = new Reaper(0, 0, tileWidth, mapHeight);
-    _engine.add(this.reaper);
+    this.add(this.reaper);
     this.reaper.registerSlashCallback(this.dino.slashed);
 
     this.resetter = new Resetter(_engine.drawWidth - 4, 24);
-    _engine.add(this.resetter);
+    this.add(this.resetter);
     this.resetter.registerResetCallback(this.resetStage);
 
     this.camera.addStrategy(new LockCameraToActorStrategy(this.dino));
