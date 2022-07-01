@@ -14,7 +14,7 @@ import { Resources } from "../resource";
 export class Dino extends Actor {
   private isLanding: boolean = false;
 
-  constructor(x: number, y: number) {
+  constructor(private x: number, private y: number) {
     super({
       x: x,
       y: y,
@@ -72,7 +72,10 @@ export class Dino extends Actor {
   }
 
   generateHitBox(engine: Engine): void {
-    const collisionGroup = CollisionGroupManager.create("dino");
+    let collisionGroup = CollisionGroupManager.groupByName("dino");
+    if (!collisionGroup) {
+      collisionGroup = CollisionGroupManager.create("dino");
+    }
 
     const underBox = new Actor({
       y: 7,
@@ -117,4 +120,9 @@ export class Dino extends Actor {
   jump = (power: number): void => {
     if (this.isLanding) this.vel.y = -config.dinoJumpVel * power;
   };
+
+  reset() {
+    this.pos = new Vector(this.x, this.y);
+    this.vel = Vector.Zero;
+  }
 }

@@ -12,41 +12,53 @@ import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
 import { PowerGauge } from "../objects/power-gauge";
 import { Reaper } from "../objects/reaper";
+import { Resetter } from "../objects/resetter";
 import { TapUI } from "../objects/tap-ui";
 import { Resources } from "../resource";
 
 export class GameScene extends Scene {
+  engine!: Engine;
+  dino!: Dino;
+  tapUI!: TapUI;
+  powerGauge!: PowerGauge;
+  goal!: Goal;
+  tempCredits!: ScreenElement;
+  reaper!: Reaper;
+  resetter!: Resetter;
+
   onInitialize(_engine: Engine): void {
+    this.engine = _engine;
+
     Resources.tiledmap.addTiledMapToScene(this);
 
-    const dino = new Dino(30, 200);
-    _engine.add(dino);
+    this.dino = new Dino(30, 200);
+    _engine.add(this.dino);
 
-    const tapUI = new TapUI(_engine);
-    tapUI.registerTapUpCallback(dino.jump);
+    this.tapUI = new TapUI(_engine);
+    this.tapUI.registerTapUpCallback(this.dino.jump);
 
-    const powerGauge = new PowerGauge();
-    _engine.add(powerGauge);
-    powerGauge.registerGetProgressCallback(tapUI.getTimerProgress);
-    dino.addChild(powerGauge);
+    this.powerGauge = new PowerGauge();
+    _engine.add(this.powerGauge);
+    this.powerGauge.registerGetProgressCallback(this.tapUI.getTimerProgress);
+    this.dino.addChild(this.powerGauge);
 
     const tileWidth = Resources.tiledmap.data.tileWidth;
     const tileHeight = Resources.tiledmap.data.tileHeight;
     const mapHeight = Resources.tiledmap.data.height;
-    const goal = new Goal(
+    this.goal = new Goal(
       _engine,
       tileWidth * config.goalCol,
       0,
       tileWidth,
       tileHeight * mapHeight
     );
-    _engine.add(goal);
+    _engine.add(this.goal);
 
-    const tempCredits = new ScreenElement({
+    this.tempCredits = new ScreenElement({
       x: 0,
       y: _engine.drawHeight - 10,
     });
-    tempCredits.graphics.use(
+    this.tempCredits.graphics.use(
       new Text({
         text: "<Credits> dino graphic -> @ArksDigital, mapchip -> kenney.nl",
         color: Color.White,
@@ -55,12 +67,22 @@ export class GameScene extends Scene {
         }),
       })
     );
-    _engine.add(tempCredits);
+    _engine.add(this.tempCredits);
 
-    const reaper = new Reaper(0, 0, tileWidth, mapHeight);
-    _engine.add(reaper);
+    this.reaper = new Reaper(0, 0, tileWidth, mapHeight);
+    _engine.add(this.reaper);
 
-    this.camera.addStrategy(new LockCameraToActorStrategy(dino));
+    this.resetter = new Resetter(_engine.drawWidth - 4, 24);
+    _engine.add(this.resetter);
+    this.resetter.registerResetCallback(this.resetStage);
+
+    this.camera.addStrategy(new LockCameraToActorStrategy(this.dino));
     this.camera.zoom = config.zoom;
   }
+
+  resetStage = (): void => {
+    this.dino.reset();
+    this.reaper.reset();
+    this.goal.reset();
+  };
 }

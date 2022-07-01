@@ -18,7 +18,16 @@ import { Resources } from "../resource";
 import { Dino } from "./dino";
 
 export class Reaper extends Actor {
-  constructor(x: number, y: number, widthHeight: number, row: number) {
+  deathScreen: ScreenElement | null = null;
+  deathMessage: ScreenElement | null = null;
+  engine!: Engine;
+
+  constructor(
+    private x: number,
+    private y: number,
+    widthHeight: number,
+    row: number
+  ) {
     super({
       x: x,
       y: y,
@@ -58,9 +67,9 @@ export class Reaper extends Actor {
   }
 
   onInitialize(engine: Engine) {
-    engine.clock.schedule(() => {
-      this.vel.x = config.reaperSpeed;
-    }, config.reaperStartTime);
+    this.engine = engine;
+
+    this.initSchedule(engine);
 
     this.on("collisionstart", (event: CollisionStartEvent): void => {
       if (!(event.other instanceof Dino)) return;
@@ -69,21 +78,21 @@ export class Reaper extends Actor {
   }
 
   emitDeathMessage(engine: Engine) {
-    const screen = new ScreenElement({
+    this.deathScreen = new ScreenElement({
       pos: Vector.Zero,
       width: engine.drawWidth * config.zoom, // bug?
       height: engine.drawHeight * config.zoom, // bug?
       color: Color.Magenta,
       anchor: Vector.Zero,
     });
-    screen.graphics.opacity = 0.2;
-    engine.add(screen);
+    this.deathScreen.graphics.opacity = 0.2;
+    engine.add(this.deathScreen);
 
-    const message = new ScreenElement({
+    this.deathMessage = new ScreenElement({
       x: engine.halfDrawWidth * config.zoom, // bug?
       y: engine.halfDrawHeight * config.zoom, // bug?
     });
-    message.graphics.use(
+    this.deathMessage.graphics.use(
       new Text({
         text: "Failed...",
         color: Color.White,
@@ -94,7 +103,20 @@ export class Reaper extends Actor {
         }),
       })
     );
-    engine.add(message);
-    engine.stop();
+    engine.add(this.deathMessage);
+  }
+
+  private initSchedule(engine: Engine) {
+    engine.clock.schedule(() => {
+      this.vel.x = config.reaperSpeed;
+    }, config.reaperStartTime);
+  }
+
+  reset() {
+    this.pos = new Vector(this.x, this.y);
+    this.vel = Vector.Zero;
+    this.initSchedule(this.engine);
+    if (this.deathScreen) this.deathScreen.kill();
+    if (this.deathMessage) this.deathMessage.kill();
   }
 }

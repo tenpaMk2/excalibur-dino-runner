@@ -14,6 +14,9 @@ import config from "../config";
 import { Dino } from "./dino";
 
 export class Goal extends Trigger {
+  clearScreen: ScreenElement | null = null;
+  clearMessage: ScreenElement | null = null;
+
   constructor(
     engine: Engine,
     x: number,
@@ -28,7 +31,6 @@ export class Goal extends Trigger {
       visible: true,
       action: () => {
         this.emitStageClearMessage(engine);
-        engine.stop();
       },
       filter: (actor: Entity) => {
         return actor instanceof Dino;
@@ -37,21 +39,21 @@ export class Goal extends Trigger {
   }
 
   emitStageClearMessage(engine: Engine) {
-    const screen = new ScreenElement({
+    this.clearScreen = new ScreenElement({
       pos: Vector.Zero,
       width: engine.drawWidth * config.zoom, // bug?
       height: engine.drawHeight * config.zoom, // bug?
       color: Color.Orange,
       anchor: Vector.Zero,
     });
-    screen.graphics.opacity = 0.2;
-    engine.add(screen);
+    this.clearScreen.graphics.opacity = 0.2;
+    engine.add(this.clearScreen);
 
-    const message = new ScreenElement({
+    this.clearMessage = new ScreenElement({
       x: engine.halfDrawWidth * config.zoom, // bug?
       y: engine.halfDrawHeight * config.zoom, // bug?
     });
-    message.graphics.use(
+    this.clearMessage.graphics.use(
       new Text({
         text: "Clear!!",
         color: Color.White,
@@ -62,6 +64,11 @@ export class Goal extends Trigger {
         }),
       })
     );
-    engine.add(message);
+    engine.add(this.clearMessage);
+  }
+
+  reset() {
+    if (this.clearScreen) this.clearScreen.kill();
+    if (this.clearMessage) this.clearMessage.kill();
   }
 }
