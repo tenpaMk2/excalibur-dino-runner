@@ -25,6 +25,14 @@ export class Dino extends Actor {
   }
 
   onInitialize(engine: Engine): void {
+    this.playRunAnimation();
+
+    this.acc = Vector.Right.scale(config.dinoXAcc);
+
+    this.generateHitBox(engine);
+  }
+
+  playRunAnimation() {
     const spriteSheet = SpriteSheet.fromImageSource({
       image: Resources.dino,
       grid: {
@@ -65,13 +73,40 @@ export class Dino extends Actor {
     });
 
     this.graphics.use(animation);
-
-    this.acc = Vector.Right.scale(config.dinoXAcc);
-
-    this.generateHitBox(engine);
   }
 
-  generateHitBox(engine: Engine): void {
+  playCryAnimation() {
+    const spriteSheet = SpriteSheet.fromImageSource({
+      image: Resources.dino,
+      grid: {
+        rows: 1,
+        columns: 24,
+        spriteHeight: 24,
+        spriteWidth: 24,
+      },
+    });
+
+    const animation = new Animation({
+      frames: [
+        {
+          graphic: spriteSheet.getSprite(14, 0)!,
+          duration: 100,
+        },
+        {
+          graphic: spriteSheet.getSprite(15, 0)!,
+          duration: 100,
+        },
+        {
+          graphic: spriteSheet.getSprite(16, 0)!,
+          duration: 100,
+        },
+      ],
+    });
+
+    this.graphics.use(animation);
+  }
+
+  private generateHitBox(engine: Engine): void {
     let collisionGroup = CollisionGroupManager.groupByName("dino");
     if (!collisionGroup) {
       collisionGroup = CollisionGroupManager.create("dino");
@@ -125,9 +160,11 @@ export class Dino extends Actor {
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
     this.acc = Vector.Right.scale(config.dinoXAcc);
+    this.playRunAnimation();
   }
 
   slashed = (): void => {
     this.acc = Vector.Zero;
+    this.playCryAnimation();
   };
 }
