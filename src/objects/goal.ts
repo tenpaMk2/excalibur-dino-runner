@@ -11,6 +11,7 @@ import {
   Vector,
 } from "excalibur";
 import config from "../config";
+import { Resources } from "../resource";
 import { Dino } from "./dino";
 
 export class Goal extends Trigger {
@@ -31,6 +32,7 @@ export class Goal extends Trigger {
       visible: true,
       action: () => {
         this.emitStageClearMessage(engine);
+        Resources.clear.play();
       },
       filter: (actor: Entity) => {
         return actor instanceof Dino;

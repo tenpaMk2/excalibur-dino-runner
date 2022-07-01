@@ -6,6 +6,7 @@ const dino = "./DinoSprites - vita.png";
 const dinoJump = "./open_002.ogg";
 const dinoLanding = "./select_006.ogg";
 const dinoBlocked = "./error_004.ogg";
+const clear = "./confirmation_002.ogg";
 const mapchip = "./tiles_packed.png";
 
 export const Resources = {
@@ -14,5 +15,6 @@ export const Resources = {
   dinoJump: new Sound(dinoJump),
   dinoLanding: new Sound(dinoLanding),
   dinoBlocked: new Sound(dinoBlocked),
+  clear: new Sound(clear),
   mapchip: new ImageSource(mapchip),
 };
