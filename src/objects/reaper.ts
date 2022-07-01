@@ -77,7 +77,7 @@ export class Reaper extends Actor {
     });
   }
 
-  emitDeathMessage(engine: Engine) {
+  private emitDeathMessage(engine: Engine) {
     this.deathScreen = new ScreenElement({
       pos: Vector.Zero,
       width: engine.drawWidth * config.zoom, // bug?

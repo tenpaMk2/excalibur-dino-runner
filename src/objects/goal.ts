@@ -38,7 +38,7 @@ export class Goal extends Trigger {
     });
   }
 
-  emitStageClearMessage(engine: Engine) {
+  private emitStageClearMessage(engine: Engine) {
     this.clearScreen = new ScreenElement({
       pos: Vector.Zero,
       width: engine.drawWidth * config.zoom, // bug?
