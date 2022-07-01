@@ -1,7 +1,7 @@
 import { TiledMapResource } from "@excaliburjs/plugin-tiled";
 import { ImageSource, Sound } from "excalibur";
 
-const tiledMapTmx = "./sample-stage.tmx";
+const tiledMapTmx = "./stage-01.tmx";
 const dino = "./DinoSprites - vita.png";
 const dinoJump = "./open_002.ogg";
 const dinoLanding = "./select_006.ogg";
