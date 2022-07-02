@@ -166,5 +166,6 @@ export class Dino extends Actor {
   slashed = (): void => {
     this.acc = Vector.Zero;
     this.playCryAnimation();
+    Resources.dinoSlashedSound.play();
   };
 }
