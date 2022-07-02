@@ -10,6 +10,7 @@ import {
   Trigger,
   Vector,
 } from "excalibur";
+import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
 import config from "../config";
 import { Resources } from "../resource";
 import { Dino } from "./dino";
@@ -17,6 +18,7 @@ import { Dino } from "./dino";
 export class Goal extends Trigger {
   clearScreen: ScreenElement | null = null;
   clearMessage: ScreenElement | null = null;
+  menu: ScreenElement | null = null;
 
   constructor(
     engine: Engine,
@@ -32,6 +34,7 @@ export class Goal extends Trigger {
       visible: true,
       action: () => {
         this.emitStageClearMessage(engine);
+        this.emitMenu(engine);
         Resources.clearSound.play();
       },
       filter: (actor: Entity) => {
@@ -61,8 +64,26 @@ export class Goal extends Trigger {
     engine.currentScene.add(this.clearMessage);
   }
 
+  private emitMenu(engine: Engine) {
+    const sprite = Resources.menu.toSprite();
+    sprite.scale = new Vector(0.5, 0.5);
+    this.menu = new ScreenElement({
+      x: engine.halfDrawWidth * config.zoom - sprite.width / 2,
+      y: 400,
+      width: sprite.width,
+      height: sprite.height,
+    });
+    engine.currentScene.add(this.menu);
+    this.menu.graphics.use(sprite);
+
+    this.menu.on("pointerdown", (event: PointerEvent): void => {
+      engine.goToScene("main-menu");
+    });
+  }
+
   reset() {
     if (this.clearScreen) this.clearScreen.kill();
     if (this.clearMessage) this.clearMessage.kill();
+    if (this.menu) this.menu.kill();
   }
 }
