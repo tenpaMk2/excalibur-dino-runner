@@ -11,10 +11,12 @@ import {
 import config from "../config";
 import { Resources } from "../resource";
 
+export type dinoType = "doux" | "mort" | "tard" | "vita";
+
 export class Dino extends Actor {
   private isLanding: boolean = false;
 
-  constructor(private x: number, private y: number) {
+  constructor(private x: number, private y: number, private type: dinoType) {
     super({
       x: x,
       y: y,
@@ -33,8 +35,26 @@ export class Dino extends Actor {
   }
 
   playRunAnimation() {
+    let image;
+    switch (this.type) {
+      case "doux":
+        image = Resources.doux;
+        break;
+      case "mort":
+        image = Resources.mort;
+        break;
+      case "tard":
+        image = Resources.tard;
+        break;
+      case "vita":
+        image = Resources.vita;
+        break;
+      default:
+        throw Error("Invalid dino type!!");
+    }
+
     const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.vita,
+      image: image,
       grid: {
         rows: 1,
         columns: 24,
@@ -76,8 +96,26 @@ export class Dino extends Actor {
   }
 
   playCryAnimation() {
+    let image;
+    switch (this.type) {
+      case "doux":
+        image = Resources.doux;
+        break;
+      case "mort":
+        image = Resources.mort;
+        break;
+      case "tard":
+        image = Resources.tard;
+        break;
+      case "vita":
+        image = Resources.vita;
+        break;
+      default:
+        throw Error("Invalid dino type!!");
+    }
+
     const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.vita,
+      image: image,
       grid: {
         rows: 1,
         columns: 24,

@@ -25,7 +25,7 @@ export class Stage02 extends Scene {
       tilemap.z = 0;
     });
 
-    this.dino = new Dino(30, 200);
+    this.dino = new Dino(30, 200, "tard");
     this.add(this.dino);
 
     this.tapUI = new TapUI(_engine);
