@@ -13,6 +13,7 @@ const dinoBlocked = "./error_004.ogg";
 const clear = "./confirmation_002.ogg";
 const mapchip = "./tiles_packed.png";
 const title = "./title.png";
+const menu = "./menu.png";
 
 export const Resources = {
   stage01Tmx: new TiledMapResource(stage01Tmx),
@@ -27,4 +28,5 @@ export const Resources = {
   clear: new Sound(clear),
   mapchip: new ImageSource(mapchip),
   title: new ImageSource(title),
+  menu: new ImageSource(menu),
 };

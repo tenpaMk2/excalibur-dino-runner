@@ -13,6 +13,7 @@ import {
   TextAlign,
   Vector,
 } from "excalibur";
+import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
 import config from "../config";
 import { Resources } from "../resource";
 import { Dino } from "./dino";
@@ -20,6 +21,7 @@ import { Dino } from "./dino";
 export class Reaper extends Actor {
   deathScreen: ScreenElement | null = null;
   deathMessage: ScreenElement | null = null;
+  menu: ScreenElement | null = null;
   engine!: Engine;
   slashCallback: (() => void) | null = null;
 
@@ -74,11 +76,12 @@ export class Reaper extends Actor {
 
     this.on("collisionstart", (event: CollisionStartEvent): void => {
       if (!(event.other instanceof Dino)) return;
-      this.emitDeathMessage(engine);
       if (!this.slashCallback)
         throw Error("Have not registered slash callback!!");
       this.slashCallback();
       this.vel = Vector.Zero;
+      this.emitDeathMessage(engine);
+      this.emitMenu(engine);
     });
   }
 
@@ -117,12 +120,30 @@ export class Reaper extends Actor {
     }, config.reaperStartTime);
   }
 
+  private emitMenu(engine: Engine) {
+    const sprite = Resources.menu.toSprite();
+    sprite.scale = new Vector(0.5, 0.5);
+    const menu = new ScreenElement({
+      x: engine.halfDrawWidth * config.zoom - sprite.width / 2,
+      y: 400,
+      width: sprite.width,
+      height: sprite.height,
+    });
+    engine.currentScene.add(menu);
+    menu.graphics.use(sprite);
+
+    menu.on("pointerdown", (event: PointerEvent): void => {
+      engine.goToScene("main-menu");
+    });
+  }
+
   reset() {
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
     this.initSchedule(this.engine);
     if (this.deathScreen) this.deathScreen.kill();
     if (this.deathMessage) this.deathMessage.kill();
+    if (this.menu) this.menu.kill();
   }
 
   registerSlashCallback(callback: () => void) {
