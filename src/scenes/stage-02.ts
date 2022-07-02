@@ -60,6 +60,10 @@ export class Stage02 extends Scene {
     this.camera.zoom = config.zoom;
   }
 
+  onActivate(_oldScene: Scene, _newScene: Scene): void {
+    this.resetStage();
+  }
+
   resetStage = (): void => {
     this.dino.reset();
     this.reaper.reset();
