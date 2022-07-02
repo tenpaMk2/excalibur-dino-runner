@@ -52,6 +52,29 @@ export class MainMenu extends Scene {
     stage01.on("pointerdown", (event: PointerEvent): void => {
       _engine.goToScene("game-scene");
     });
+
+    const stage02Text = new Text({
+      text: "Stage-02",
+      color: Color.White,
+      font: new Font({
+        size: 32,
+        textAlign: TextAlign.Left,
+        baseAlign: BaseAlign.Top,
+      }),
+    });
+
+    const stage02 = new Actor({
+      x: _engine.halfDrawWidth,
+      y: 350,
+      width: stage02Text.width,
+      height: stage02Text.height,
+      anchor: new Vector(0.5, 0.5),
+    });
+    _engine.add(stage02);
+    stage02.graphics.use(stage02Text);
+    stage02.on("pointerdown", (event: PointerEvent): void => {
+      _engine.goToScene("stage-02");
+    });
   }
 
   initDinos(engine: Engine) {
