@@ -21,6 +21,9 @@ export class Stage01 extends Scene {
     this.engine = _engine;
 
     Resources.stage01Tmx.addTiledMapToScene(this);
+    Resources.stage01Tmx.getTileMapLayers().forEach((tilemap) => {
+      tilemap.z = 0;
+    });
 
     this.dino = new Dino(30, 200);
     this.add(this.dino);
