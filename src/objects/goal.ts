@@ -32,7 +32,7 @@ export class Goal extends Trigger {
       visible: true,
       action: () => {
         this.emitStageClearMessage(engine);
-        Resources.clear.play();
+        Resources.clearSound.play();
       },
       filter: (actor: Entity) => {
         return actor instanceof Dino;
@@ -51,21 +51,13 @@ export class Goal extends Trigger {
     this.clearScreen.graphics.opacity = 0.2;
     engine.currentScene.add(this.clearScreen);
 
+    const sprite = Resources.clear.toSprite();
     this.clearMessage = new ScreenElement({
-      x: engine.halfDrawWidth * config.zoom, // bug?
-      y: engine.halfDrawHeight * config.zoom, // bug?
+      x: engine.halfDrawWidth * config.zoom - sprite.width / 2, // bug?
+      y: engine.halfDrawHeight * config.zoom - sprite.height / 2, // bug?
     });
-    this.clearMessage.graphics.use(
-      new Text({
-        text: "Clear!!",
-        color: Color.White,
-        font: new Font({
-          size: 64,
-          textAlign: TextAlign.Center,
-          baseAlign: BaseAlign.Middle,
-        }),
-      })
-    );
+
+    this.clearMessage.graphics.use(sprite);
     engine.currentScene.add(this.clearMessage);
   }
 

@@ -1,7 +1,7 @@
 import {
   Actor,
   Animation,
-  BaseAlign,
+  CollisionType,
   Color,
   Engine,
   Font,
@@ -10,7 +10,6 @@ import {
   Sprite,
   SpriteSheet,
   Text,
-  TextAlign,
   Vector,
 } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
@@ -31,51 +30,8 @@ export class MainMenu extends Scene {
 
     this.initDinos(_engine);
 
-    const stage01Text = new Text({
-      text: "Stage-01",
-      color: Color.White,
-      font: new Font({
-        size: 32,
-        textAlign: TextAlign.Left,
-        baseAlign: BaseAlign.Top,
-      }),
-    });
-
-    const stage01 = new Actor({
-      x: _engine.halfDrawWidth,
-      y: 300,
-      width: stage01Text.width,
-      height: stage01Text.height,
-      anchor: new Vector(0.5, 0.5),
-    });
-    _engine.currentScene.add(stage01);
-    stage01.graphics.use(stage01Text);
-    stage01.on("pointerdown", (event: PointerEvent): void => {
-      _engine.goToScene("stage-01");
-    });
-
-    const stage02Text = new Text({
-      text: "Stage-02",
-      color: Color.White,
-      font: new Font({
-        size: 32,
-        textAlign: TextAlign.Left,
-        baseAlign: BaseAlign.Top,
-      }),
-    });
-
-    const stage02 = new Actor({
-      x: _engine.halfDrawWidth,
-      y: 350,
-      width: stage02Text.width,
-      height: stage02Text.height,
-      anchor: new Vector(0.5, 0.5),
-    });
-    _engine.currentScene.add(stage02);
-    stage02.graphics.use(stage02Text);
-    stage02.on("pointerdown", (event: PointerEvent): void => {
-      _engine.goToScene("stage-02");
-    });
+    this.initStage01(_engine);
+    this.initStage02(_engine);
 
     this.initCredits(_engine);
   }
@@ -285,6 +241,40 @@ export class MainMenu extends Scene {
     });
     engine.currentScene.add(dino);
     dino.graphics.use(animation);
+  }
+
+  initStage01(engine: Engine) {
+    const sprite = Resources.stage01.toSprite();
+    const stage = new Actor({
+      x: engine.halfDrawWidth,
+      y: 300,
+      width: sprite.width,
+      height: sprite.height,
+      collisionType: CollisionType.PreventCollision,
+    });
+    engine.currentScene.add(stage);
+    stage.graphics.use(sprite);
+
+    stage.on("pointerdown", (event: PointerEvent): void => {
+      engine.goToScene("stage-01");
+    });
+  }
+
+  initStage02(engine: Engine) {
+    const stage02Sprite = Resources.stage02.toSprite();
+    const stage02 = new Actor({
+      x: engine.halfDrawWidth,
+      y: 350,
+      width: stage02Sprite.width,
+      height: stage02Sprite.height,
+      collisionType: CollisionType.PreventCollision,
+    });
+    engine.currentScene.add(stage02);
+    stage02.graphics.use(stage02Sprite);
+
+    stage02.on("pointerdown", (event: PointerEvent): void => {
+      engine.goToScene("stage-02");
+    });
   }
 
   initCredits(engine: Engine) {

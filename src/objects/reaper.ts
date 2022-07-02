@@ -96,21 +96,12 @@ export class Reaper extends Actor {
     this.deathScreen.graphics.opacity = 0.2;
     engine.currentScene.add(this.deathScreen);
 
+    const sprite = Resources.failed.toSprite();
     this.deathMessage = new ScreenElement({
-      x: engine.halfDrawWidth * config.zoom, // bug?
-      y: engine.halfDrawHeight * config.zoom, // bug?
+      x: engine.halfDrawWidth * config.zoom - sprite.width / 2, // bug?
+      y: engine.halfDrawHeight * config.zoom - sprite.height / 2, // bug?
     });
-    this.deathMessage.graphics.use(
-      new Text({
-        text: "Failed...",
-        color: Color.White,
-        font: new Font({
-          size: 64,
-          textAlign: TextAlign.Center,
-          baseAlign: BaseAlign.Middle,
-        }),
-      })
-    );
+    this.deathMessage.graphics.use(sprite);
     engine.currentScene.add(this.deathMessage);
   }
 
@@ -123,16 +114,16 @@ export class Reaper extends Actor {
   private emitMenu(engine: Engine) {
     const sprite = Resources.menu.toSprite();
     sprite.scale = new Vector(0.5, 0.5);
-    const menu = new ScreenElement({
+    this.menu = new ScreenElement({
       x: engine.halfDrawWidth * config.zoom - sprite.width / 2,
       y: 400,
       width: sprite.width,
       height: sprite.height,
     });
-    engine.currentScene.add(menu);
-    menu.graphics.use(sprite);
+    engine.currentScene.add(this.menu);
+    this.menu.graphics.use(sprite);
 
-    menu.on("pointerdown", (event: PointerEvent): void => {
+    this.menu.on("pointerdown", (event: PointerEvent): void => {
       engine.goToScene("main-menu");
     });
   }

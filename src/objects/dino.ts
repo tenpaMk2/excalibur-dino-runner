@@ -123,7 +123,7 @@ export class Dino extends Actor {
     engine.currentScene.add(underBox);
 
     underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
-      Resources.dinoLanding.play();
+      Resources.dinoLandingSound.play();
       this.isLanding = true;
     });
     underBox.on("collisionend", (event: Events.CollisionEndEvent): void => {
@@ -141,7 +141,7 @@ export class Dino extends Actor {
     engine.currentScene.add(rightBox);
 
     rightBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
-      Resources.dinoBlocked.play();
+      Resources.dinoBlockedSound.play();
     });
 
     this.body.group = collisionGroup;
