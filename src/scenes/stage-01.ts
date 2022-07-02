@@ -16,7 +16,7 @@ import { Resetter } from "../objects/resetter";
 import { TapUI } from "../objects/tap-ui";
 import { Resources } from "../resource";
 
-export class GameScene extends Scene {
+export class Stage01 extends Scene {
   engine!: Engine;
   dino!: Dino;
   tapUI!: TapUI;

@@ -1,8 +1,8 @@
 import { DisplayMode, Engine, Loader, Physics, Vector } from "excalibur";
 import config from "./config";
 import { Resources } from "./resource";
-import { GameScene } from "./scenes/game-scene";
 import { MainMenu } from "./scenes/main-menu";
+import { Stage01 } from "./scenes/stage-01";
 import { Stage02 } from "./scenes/stage-02";
 
 const engine = new Engine({
@@ -17,7 +17,7 @@ Physics.gravity = Vector.Down.scale(config.gravity);
 
 engine.showDebug(false);
 engine.add("main-menu", new MainMenu());
-engine.add("game-scene", new GameScene());
+engine.add("stage-01", new Stage01());
 engine.add("stage-02", new Stage02());
 engine.goToScene("main-menu");
 

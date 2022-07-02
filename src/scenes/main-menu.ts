@@ -50,7 +50,7 @@ export class MainMenu extends Scene {
     _engine.add(stage01);
     stage01.graphics.use(stage01Text);
     stage01.on("pointerdown", (event: PointerEvent): void => {
-      _engine.goToScene("game-scene");
+      _engine.goToScene("stage-01");
     });
 
     const stage02Text = new Text({
