@@ -1,12 +1,4 @@
-import {
-  Color,
-  Engine,
-  Font,
-  LockCameraToActorStrategy,
-  Scene,
-  ScreenElement,
-  Text,
-} from "excalibur";
+import { Engine, LockCameraToActorStrategy, Scene } from "excalibur";
 import config from "../config";
 import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
@@ -22,7 +14,6 @@ export class Stage02 extends Scene {
   tapUI!: TapUI;
   powerGauge!: PowerGauge;
   goal!: Goal;
-  tempCredits!: ScreenElement;
   reaper!: Reaper;
   resetter!: Resetter;
 
@@ -53,21 +44,6 @@ export class Stage02 extends Scene {
       tileHeight * mapHeight
     );
     this.add(this.goal);
-
-    this.tempCredits = new ScreenElement({
-      x: 0,
-      y: _engine.drawHeight - 10,
-    });
-    this.tempCredits.graphics.use(
-      new Text({
-        text: "<Credits> dino graphic -> @ArksDigital, mapchip and sound -> kenney.nl",
-        color: Color.White,
-        font: new Font({
-          size: 24,
-        }),
-      })
-    );
-    this.add(this.tempCredits);
 
     this.reaper = new Reaper(0, 0, tileWidth, mapHeight);
     this.add(this.reaper);

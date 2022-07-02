@@ -6,6 +6,7 @@ import {
   Engine,
   Font,
   Scene,
+  ScreenElement,
   Sprite,
   SpriteSheet,
   Text,
@@ -47,7 +48,7 @@ export class MainMenu extends Scene {
       height: stage01Text.height,
       anchor: new Vector(0.5, 0.5),
     });
-    _engine.add(stage01);
+    _engine.currentScene.add(stage01);
     stage01.graphics.use(stage01Text);
     stage01.on("pointerdown", (event: PointerEvent): void => {
       _engine.goToScene("stage-01");
@@ -70,11 +71,13 @@ export class MainMenu extends Scene {
       height: stage02Text.height,
       anchor: new Vector(0.5, 0.5),
     });
-    _engine.add(stage02);
+    _engine.currentScene.add(stage02);
     stage02.graphics.use(stage02Text);
     stage02.on("pointerdown", (event: PointerEvent): void => {
       _engine.goToScene("stage-02");
     });
+
+    this.initCredits(_engine);
   }
 
   initDinos(engine: Engine) {
@@ -282,5 +285,22 @@ export class MainMenu extends Scene {
     });
     engine.currentScene.add(dino);
     dino.graphics.use(animation);
+  }
+
+  initCredits(engine: Engine) {
+    const credits = new ScreenElement({
+      x: 0,
+      y: engine.drawHeight - 10,
+    });
+    credits.graphics.use(
+      new Text({
+        text: "<Credits> dino graphic -> @ArksDigital, mapchip and sound -> kenney.nl",
+        color: Color.White,
+        font: new Font({
+          size: 24,
+        }),
+      })
+    );
+    engine.currentScene.add(credits);
   }
 }
