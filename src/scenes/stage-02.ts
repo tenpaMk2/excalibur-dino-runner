@@ -29,7 +29,7 @@ export class Stage02 extends Scene {
   onInitialize(_engine: Engine): void {
     this.engine = _engine;
 
-    Resources.tiledmap.addTiledMapToScene(this);
+    Resources.stage02Tmx.addTiledMapToScene(this);
 
     this.dino = new Dino(30, 200);
     this.add(this.dino);
@@ -42,9 +42,9 @@ export class Stage02 extends Scene {
     this.powerGauge.registerGetProgressCallback(this.tapUI.getTimerProgress);
     this.dino.addChild(this.powerGauge);
 
-    const tileWidth = Resources.tiledmap.data.tileWidth;
-    const tileHeight = Resources.tiledmap.data.tileHeight;
-    const mapHeight = Resources.tiledmap.data.height;
+    const tileWidth = Resources.stage02Tmx.data.tileWidth;
+    const tileHeight = Resources.stage02Tmx.data.tileHeight;
+    const mapHeight = Resources.stage02Tmx.data.height;
     this.goal = new Goal(
       _engine,
       tileWidth * config.goalCol,
