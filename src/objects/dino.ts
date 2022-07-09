@@ -5,11 +5,11 @@ import {
   CollisionType,
   Engine,
   Events,
-  SpriteSheet,
   Vector,
 } from "excalibur";
 import config from "../config";
 import { Resources } from "../resource";
+import { ResourceManager } from "./resource-manager";
 
 export type dinoType = "doux" | "mort" | "tard" | "vita";
 
@@ -35,111 +35,41 @@ export class Dino extends Actor {
   }
 
   playRunAnimation() {
-    let image;
+    let animation: Animation;
     switch (this.type) {
       case "doux":
-        image = Resources.doux;
+        animation = ResourceManager.getDinoDouxRunAnimation();
         break;
       case "mort":
-        image = Resources.mort;
+        animation = ResourceManager.getDinoMortRunAnimation();
         break;
       case "tard":
-        image = Resources.tard;
+        animation = ResourceManager.getDinoTardRunAnimation();
         break;
       case "vita":
-        image = Resources.vita;
+        animation = ResourceManager.getDinoVitaRunAnimation();
         break;
-      default:
-        throw Error("Invalid dino type!!");
     }
-
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: image,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(4, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(5, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(6, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(7, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(8, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(9, 0)!,
-          duration: 100,
-        },
-      ],
-    });
 
     this.graphics.use(animation);
   }
 
   playCryAnimation() {
-    let image;
+    let animation: Animation;
     switch (this.type) {
       case "doux":
-        image = Resources.doux;
+        animation = ResourceManager.getDinoDouxCryAnimation();
         break;
       case "mort":
-        image = Resources.mort;
+        animation = ResourceManager.getDinoMortCryAnimation();
         break;
       case "tard":
-        image = Resources.tard;
+        animation = ResourceManager.getDinoTardCryAnimation();
         break;
       case "vita":
-        image = Resources.vita;
+        animation = ResourceManager.getDinoVitaCryAnimation();
         break;
-      default:
-        throw Error("Invalid dino type!!");
     }
-
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: image,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(14, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(15, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(16, 0)!,
-          duration: 100,
-        },
-      ],
-    });
 
     this.graphics.use(animation);
   }

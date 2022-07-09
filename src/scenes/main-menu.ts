@@ -1,18 +1,16 @@
 import {
   Actor,
-  Animation,
   CollisionType,
   Color,
   Engine,
   Font,
   Scene,
   ScreenElement,
-  Sprite,
-  SpriteSheet,
   Text,
   Vector,
 } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
+import { ResourceManager } from "../objects/resource-manager";
 import { Resources } from "../resource";
 
 export class MainMenu extends Scene {
@@ -22,9 +20,7 @@ export class MainMenu extends Scene {
       y: 100,
     });
     _engine.currentScene.add(title);
-    const image = new Sprite({
-      image: Resources.title,
-    });
+    const image = ResourceManager.getTitleSprite();
     image.scale = new Vector(2, 2);
     title.graphics.use(image);
 
@@ -44,45 +40,7 @@ export class MainMenu extends Scene {
   }
 
   initVita(engine: Engine) {
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.vita,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(4, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(5, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(6, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(7, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(8, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(9, 0)!,
-          duration: 100,
-        },
-      ],
-    });
-
+    const animation = ResourceManager.getDinoVitaRunAnimation();
     animation.scale = new Vector(4, 4);
 
     const dino = new Actor({
@@ -94,45 +52,7 @@ export class MainMenu extends Scene {
   }
 
   initTard(engine: Engine) {
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.tard,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(4, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(5, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(6, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(7, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(8, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(9, 0)!,
-          duration: 100,
-        },
-      ],
-    });
-
+    const animation = ResourceManager.getDinoTardRunAnimation();
     animation.scale = new Vector(4, 4);
 
     const dino = new Actor({
@@ -144,45 +64,7 @@ export class MainMenu extends Scene {
   }
 
   initDoux(engine: Engine) {
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.doux,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(4, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(5, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(6, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(7, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(8, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(9, 0)!,
-          duration: 100,
-        },
-      ],
-    });
-
+    const animation = ResourceManager.getDinoDouxRunAnimation();
     animation.scale = new Vector(4, 4);
 
     const dino = new Actor({
@@ -194,45 +76,7 @@ export class MainMenu extends Scene {
   }
 
   initMort(engine: Engine) {
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.mort,
-      grid: {
-        rows: 1,
-        columns: 24,
-        spriteHeight: 24,
-        spriteWidth: 24,
-      },
-    });
-
-    const animation = new Animation({
-      frames: [
-        {
-          graphic: spriteSheet.getSprite(4, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(5, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(6, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(7, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(8, 0)!,
-          duration: 100,
-        },
-        {
-          graphic: spriteSheet.getSprite(9, 0)!,
-          duration: 100,
-        },
-      ],
-    });
-
+    const animation = ResourceManager.getDinoMortRunAnimation();
     animation.scale = new Vector(4, 4);
 
     const dino = new Actor({

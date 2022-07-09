@@ -1,22 +1,18 @@
 import {
   Actor,
-  BaseAlign,
   CollisionStartEvent,
   CollisionType,
   Color,
   Engine,
-  Font,
   GraphicsGroup,
   ScreenElement,
-  SpriteSheet,
-  Text,
-  TextAlign,
   Vector,
 } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
 import config from "../config";
 import { Resources } from "../resource";
 import { Dino } from "./dino";
+import { ResourceManager } from "./resource-manager";
 
 export class Reaper extends Actor {
   deathScreen: ScreenElement | null = null;
@@ -41,17 +37,7 @@ export class Reaper extends Actor {
       color: Color.Magenta,
     });
 
-    const spriteSheet = SpriteSheet.fromImageSource({
-      image: Resources.mapchip,
-      grid: {
-        rows: 9,
-        columns: 20,
-        spriteHeight: 18,
-        spriteWidth: 18,
-      },
-    });
-
-    const sprite = spriteSheet.getSprite(8, 3)!;
+    const sprite = ResourceManager.getReaperSprite();
     sprite.rotation = Math.PI * 0.5;
 
     const members = [];
