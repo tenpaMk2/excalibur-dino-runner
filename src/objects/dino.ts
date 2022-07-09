@@ -22,14 +22,11 @@ export class Dino extends Actor {
       y: y,
       width: 14,
       height: 14,
-      collisionType: CollisionType.Active,
     });
   }
 
   onInitialize(engine: Engine): void {
-    this.playRunAnimation();
-
-    this.acc = Vector.Right.scale(config.dinoXAcc);
+    this.reset();
 
     this.generateHitBox(engine);
   }
@@ -128,12 +125,15 @@ export class Dino extends Actor {
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
     this.acc = Vector.Right.scale(config.dinoXAcc);
+    this.body.collisionType = CollisionType.Active;
     this.playRunAnimation();
   }
 
   slashed = (): void => {
     this.acc = Vector.Zero;
+    this.vel = Vector.Zero;
     this.playCryAnimation();
+    this.body.collisionType = CollisionType.PreventCollision;
     Resources.dinoSlashedSound.play();
   };
 }
