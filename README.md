@@ -4,6 +4,10 @@
 
 Simple tapping game made by Excalibur.js.
 
+## play
+
+[here!](https://tenpamk2-blog.netlify.app/apps/excalibur-dino-runner/)
+
 ## Credits
 
 | item (description) |    author    | URL                               |
