@@ -1,4 +1,9 @@
-import { Engine, LockCameraToActorStrategy, Scene } from "excalibur";
+import {
+  Engine,
+  LockCameraToActorStrategy,
+  Scene,
+  SceneActivationContext,
+} from "excalibur";
 import config from "../config";
 import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
@@ -60,7 +65,7 @@ export class Stage02 extends Scene {
     this.camera.zoom = config.zoom;
   }
 
-  onActivate(_oldScene: Scene, _newScene: Scene): void {
+  onActivate(ctx: SceneActivationContext): void {
     this.resetStage();
   }
 
