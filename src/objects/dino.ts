@@ -14,7 +14,7 @@ import { ResourceManager } from "./resource-manager";
 export type dinoType = "doux" | "mort" | "tard" | "vita";
 
 export class Dino extends Actor {
-  private isLanding: boolean = false;
+  private canJump!: boolean;
 
   constructor(private x: number, private y: number, private type: dinoType) {
     super({
@@ -89,10 +89,10 @@ export class Dino extends Actor {
 
     underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
       Resources.dinoLandingSound.play();
-      this.isLanding = true;
+      this.canJump = true;
     });
     underBox.on("collisionend", (event: Events.CollisionEndEvent): void => {
-      this.isLanding = false;
+      this.canJump = false;
     });
 
     const rightBox = new Actor({
@@ -118,10 +118,11 @@ export class Dino extends Actor {
   }
 
   jump = (power: number): void => {
-    if (this.isLanding) this.vel.y = -config.dinoJumpVel * power;
+    if (this.canJump) this.vel.y = -config.dinoJumpVel * power;
   };
 
   reset() {
+    this.canJump = false;
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
     this.acc = Vector.Right.scale(config.dinoXAcc);
@@ -130,6 +131,7 @@ export class Dino extends Actor {
   }
 
   slashed = (): void => {
+    this.canJump = false;
     this.acc = Vector.Zero;
     this.vel = Vector.Zero;
     this.playCryAnimation();
