@@ -4,7 +4,8 @@ import {
   CollisionGroupManager,
   CollisionType,
   Engine,
-  Events,
+  PostCollisionEvent,
+  Side,
   Vector,
 } from "excalibur";
 import config from "../config";
@@ -14,7 +15,9 @@ import { ResourceManager } from "./resource-manager";
 export type dinoType = "doux" | "mort" | "tard" | "vita";
 
 export class Dino extends Actor {
-  private canJump!: boolean;
+  private touchedEdges: Side[] = [];
+  private canJumpPreviousFrame: boolean = false;
+  private isBlockedPreviousFrame: boolean = false;
 
   constructor(private x: number, private y: number, private type: dinoType) {
     super({
@@ -72,57 +75,43 @@ export class Dino extends Actor {
   }
 
   private generateHitBox(engine: Engine): void {
-    let collisionGroup = CollisionGroupManager.groupByName("dino");
-    if (!collisionGroup) {
-      collisionGroup = CollisionGroupManager.create("dino");
-    }
-
-    const underBox = new Actor({
-      y: 7,
-      width: 7,
-      height: 1,
-      collisionType: CollisionType.Passive,
-      collisionGroup: collisionGroup,
+    this.on("postcollision", (event: PostCollisionEvent): void => {
+      if (!this.canJumpPreviousFrame && event.side === Side.Bottom) {
+        Resources.dinoLandingSound.play();
+      }
+      if (!this.isBlockedPreviousFrame && event.side === Side.Right) {
+        Resources.dinoBlockedSound.play();
+      }
+      this.touchedEdges.push(event.side);
     });
-    this.addChild(underBox);
-    engine.currentScene.add(underBox);
-
-    underBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
-      Resources.dinoLandingSound.play();
-      this.canJump = true;
-    });
-    underBox.on("collisionend", (event: Events.CollisionEndEvent): void => {
-      this.canJump = false;
-    });
-
-    const rightBox = new Actor({
-      x: 7,
-      width: 1,
-      height: 7,
-      collisionType: CollisionType.Passive,
-      collisionGroup: collisionGroup,
-    });
-    this.addChild(rightBox);
-    engine.currentScene.add(rightBox);
-
-    rightBox.on("collisionstart", (event: Events.CollisionStartEvent): void => {
-      Resources.dinoBlockedSound.play();
-    });
-
-    this.body.group = collisionGroup;
   }
 
   onPreUpdate(engine: Engine): void {
     this.vel.x =
       this.vel.x < config.dinoMaxXSpeed ? this.vel.x : config.dinoMaxXSpeed;
+
+    this.canJumpPreviousFrame = this.canJump();
+    this.isBlockedPreviousFrame = this.isBlocked();
+    this.touchedEdges.length = 0; // reset
   }
 
   jump = (power: number): void => {
-    if (this.canJump) this.vel.y = -config.dinoJumpVel * power;
+    if (this.canJump()) this.vel.y = -config.dinoJumpVel * power;
   };
 
+  private canJump(): boolean {
+    return !this.isSlashed() && this.touchedEdges.includes(Side.Bottom);
+  }
+
+  private isBlocked(): boolean {
+    return this.touchedEdges.includes(Side.Right);
+  }
+
+  private isSlashed(): boolean {
+    return this.body.collisionType === CollisionType.PreventCollision;
+  }
+
   reset() {
-    this.canJump = false;
     this.pos = new Vector(this.x, this.y);
     this.vel = Vector.Zero;
     this.acc = Vector.Right.scale(config.dinoXAcc);
@@ -131,7 +120,6 @@ export class Dino extends Actor {
   }
 
   slashed = (): void => {
-    this.canJump = false;
     this.acc = Vector.Zero;
     this.vel = Vector.Zero;
     this.playCryAnimation();
