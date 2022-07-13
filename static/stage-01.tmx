@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="110" height="20" tilewidth="18" tileheight="18" infinite="0" nextlayerid="10" nextobjectid="5">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="110" height="20" tilewidth="18" tileheight="18" infinite="0" nextlayerid="11" nextobjectid="16">
  <properties>
   <property name="excalibur" type="bool" value="true"/>
  </properties>
@@ -80,4 +80,13 @@
 142,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,144
 </data>
  </layer>
+ <objectgroup id="10" name="obje">
+  <properties>
+   <property name="excalibur" type="bool" value="true"/>
+  </properties>
+  <object id="12" name="goal" x="1926" y="0" width="18" height="360"/>
+  <object id="13" name="upper-spring" x="1260" y="279" width="18" height="9"/>
+  <object id="14" name="upper-spring" x="1350" y="279" width="18" height="9"/>
+  <object id="15" name="upper-spring" x="450" y="279" width="18" height="9"/>
+ </objectgroup>
 </map>

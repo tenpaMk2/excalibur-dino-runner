@@ -279,4 +279,12 @@ export class ResourceManager extends Actor {
   static getReaperSprite() {
     return ResourceManager.getMapchipSpriteSheet().getSprite(8, 3)!;
   }
+
+  static getUpperStretchedSpringSprite() {
+    return ResourceManager.getMapchipSpriteSheet().getSprite(7, 5)!;
+  }
+
+  static getUpperOutstretchedSpringSprite() {
+    return ResourceManager.getMapchipSpriteSheet().getSprite(8, 5)!;
+  }
 }
