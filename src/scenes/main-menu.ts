@@ -128,7 +128,7 @@ export class MainMenu extends Scene {
     });
     credits.graphics.use(
       new Text({
-        text: "<Credits> dino graphic -> @ArksDigital, mapchip, font and sound -> kenney.nl",
+        text: "<Credits> dino graphic: @ArksDigital, mapchip & font & sound: kenney.nl",
         color: Color.White,
         font: new Font({
           size: 24,
