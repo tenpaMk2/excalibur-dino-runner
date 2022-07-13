@@ -18,6 +18,9 @@ export const Resources = {
   menu: new ImageSource("./menu.png"),
   failed: new ImageSource("./Failed.png"),
   clear: new ImageSource("./clear.png"),
+  reset: new ImageSource("./Reset.png"),
   stage01: new ImageSource("./Stage-01.png"),
   stage02: new ImageSource("./Stage-02.png"),
+  stage03: new ImageSource("./Stage-03.png"),
+  stage04: new ImageSource("./Stage-04.png"),
 };

@@ -1,14 +1,6 @@
-import {
-  CollisionType,
-  Color,
-  Engine,
-  Font,
-  ScreenElement,
-  Text,
-  TextAlign,
-  Vector,
-} from "excalibur";
+import { CollisionType, Engine, ScreenElement, Vector } from "excalibur";
 import { PointerEvent } from "excalibur/build/dist/Input/PointerEvent";
+import { Resources } from "../resource";
 
 export class Resetter extends ScreenElement {
   private resetCallback: (() => void) | null = null;
@@ -18,20 +10,15 @@ export class Resetter extends ScreenElement {
       x: x,
       y: y,
       collisionType: CollisionType.PreventCollision,
+      scale: new Vector(0.5, 0.5),
     });
   }
 
   onInitialize(engine: Engine): void {
-    const text = new Text({
-      text: "Reset",
-      color: Color.White,
-      font: new Font({
-        size: 24,
-        textAlign: TextAlign.Right,
-      }),
-    });
-    this.graphics.use(text);
-    this.collider.useBoxCollider(text.width, text.height, new Vector(1, 1));
+    const sprite = Resources.reset.toSprite();
+    this.graphics.use(sprite);
+    this.graphics.anchor = new Vector(1, 0);
+    this.collider.useBoxCollider(sprite.width, sprite.height, new Vector(1, 0));
 
     this.on("pointerdown", (event: PointerEvent): void => {
       if (!this.resetCallback)

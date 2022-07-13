@@ -57,7 +57,7 @@ export class Stage01 extends Scene {
     this.add(this.reaper);
     this.reaper.registerSlashCallback(this.dino.slashed);
 
-    this.resetter = new Resetter(_engine.drawWidth - 4, 24);
+    this.resetter = new Resetter(_engine.drawWidth, 0);
     this.add(this.resetter);
     this.resetter.registerResetCallback(this.resetStage);
 
