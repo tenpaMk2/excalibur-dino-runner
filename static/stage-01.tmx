@@ -85,8 +85,6 @@
    <property name="excalibur" type="bool" value="true"/>
   </properties>
   <object id="12" name="goal" x="1926" y="0" width="18" height="360"/>
-  <object id="13" name="up-spring" x="1260" y="279" width="18" height="9"/>
-  <object id="14" name="up-spring" x="1350" y="279" width="18" height="9"/>
   <object id="15" name="up-spring" x="450" y="279" width="18" height="9"/>
  </objectgroup>
 </map>
