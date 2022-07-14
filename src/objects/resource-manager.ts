@@ -287,4 +287,40 @@ export class ResourceManager extends Actor {
   static getUpOutstretchedSpringSprite() {
     return ResourceManager.getMapchipSpriteSheet().getSprite(8, 5)!;
   }
+
+  static getRightStretchedSpringSprite() {
+    const sprite = ResourceManager.getUpStretchedSpringSprite()!;
+    sprite.rotation = Math.PI * 0.5;
+    return sprite;
+  }
+
+  static getRightOutstretchedSpringSprite() {
+    const sprite = ResourceManager.getUpOutstretchedSpringSprite()!;
+    sprite.rotation = Math.PI * 0.5;
+    return sprite;
+  }
+
+  static getDownStretchedSpringSprite() {
+    const sprite = ResourceManager.getUpStretchedSpringSprite()!;
+    sprite.rotation = -Math.PI;
+    return sprite;
+  }
+
+  static getDownOutstretchedSpringSprite() {
+    const sprite = ResourceManager.getUpOutstretchedSpringSprite()!;
+    sprite.rotation = -Math.PI;
+    return sprite;
+  }
+
+  static getLeftStretchedSpringSprite() {
+    const sprite = ResourceManager.getUpStretchedSpringSprite()!;
+    sprite.rotation = -Math.PI * 0.5;
+    return sprite;
+  }
+
+  static getLeftOutstretchedSpringSprite() {
+    const sprite = ResourceManager.getUpOutstretchedSpringSprite()!;
+    sprite.rotation = -Math.PI * 0.5;
+    return sprite;
+  }
 }

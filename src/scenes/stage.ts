@@ -8,12 +8,19 @@ import {
 import config from "../config";
 import { Dino } from "../objects/dino";
 import { Goal } from "../objects/goal";
+import {
+  DownSpring,
+  LeftSpring,
+  RightSpring,
+  UpSpring,
+} from "../objects/spring";
 import { PowerGauge } from "../objects/power-gauge";
 import { Reaper } from "../objects/reaper";
 import { Resetter } from "../objects/resetter";
 import { TapUI } from "../objects/tap-ui";
-import { UpSpring } from "../objects/up-spring";
 import { Resources } from "../resource";
+
+type SpringName = "up-spring" | "right-spring" | "down-spring" | "left-spring";
 
 export class Stage extends Scene {
   engine!: Engine;
@@ -70,7 +77,7 @@ export class Stage extends Scene {
 
     this.initGoal(engine, stageResource);
 
-    this.initUpSpring(engine, stageResource);
+    this.initSpring(engine, stageResource);
 
     const tileWidth = stageResource.data.tileWidth;
     const mapHeight = stageResource.data.height;
@@ -119,32 +126,73 @@ export class Stage extends Scene {
     engine.add(this.goal);
   }
 
-  initUpSpring(engine: Engine, stageResource: TiledMapResource): void {
+  initSpring(engine: Engine, stageResource: TiledMapResource): void {
+    this.initSpringCore(engine, stageResource, "up-spring");
+    this.initSpringCore(engine, stageResource, "right-spring");
+    this.initSpringCore(engine, stageResource, "down-spring");
+    this.initSpringCore(engine, stageResource, "left-spring");
+  }
+
+  initSpringCore(
+    engine: Engine,
+    stageResource: TiledMapResource,
+    springName: SpringName
+  ): void {
     const objects = stageResource.data.getExcaliburObjects();
-    const springObjects = objects[0]?.getObjectsByName("up-spring");
+    const springObjects = objects[0]?.getObjectsByName(springName);
     if (!springObjects)
-      throw Error("cannot find the up-spring object from `.tmx` .");
+      throw Error(`cannot find the ${springName} object from \`.tmx\` .`);
 
     springObjects.forEach((springObject) => {
       if (!springObject.width) {
         throw Error(
-          "cannot find the width of the up-spring object from `.tmx` ."
+          `cannot find the width of the ${springName} object from \`.tmx\` .`
         );
       }
       if (!springObject.height) {
         throw Error(
-          "cannot find the height of the up-spring object from `.tmx` ."
+          `cannot find the height of the ${springName} object from \`.tmx\` .`
         );
       }
 
-      const spring = new UpSpring(
-        engine,
-        springObject.x,
-        springObject.y,
-        springObject.width,
-        springObject.height
-      );
-      engine.add(spring);
+      switch (springName) {
+        case "up-spring":
+          const upSpring = new UpSpring(
+            springObject.x,
+            springObject.y,
+            springObject.width,
+            springObject.height
+          );
+          engine.add(upSpring);
+          return;
+        case "right-spring":
+          const rightSpring = new RightSpring(
+            springObject.x,
+            springObject.y,
+            springObject.width,
+            springObject.height
+          );
+          engine.add(rightSpring);
+          return;
+        case "down-spring":
+          const downSpring = new DownSpring(
+            springObject.x,
+            springObject.y,
+            springObject.width,
+            springObject.height
+          );
+          engine.add(downSpring);
+          return;
+        case "left-spring":
+          const leftSpring = new LeftSpring(
+            springObject.x,
+            springObject.y,
+            springObject.width,
+            springObject.height
+          );
+          engine.add(leftSpring);
+          return;
+      }
     });
   }
 }
