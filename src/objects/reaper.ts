@@ -80,7 +80,7 @@ export class Reaper extends Actor {
       anchor: Vector.Zero,
     });
     this.deathScreen.graphics.opacity = 0.2;
-    engine.currentScene.add(this.deathScreen);
+    engine.add(this.deathScreen);
 
     const sprite = Resources.failed.toSprite();
     this.deathMessage = new ScreenElement({
@@ -88,7 +88,7 @@ export class Reaper extends Actor {
       y: engine.halfDrawHeight * config.zoom - sprite.height / 2, // bug?
     });
     this.deathMessage.graphics.use(sprite);
-    engine.currentScene.add(this.deathMessage);
+    engine.add(this.deathMessage);
   }
 
   private initSchedule(engine: Engine) {
@@ -106,7 +106,7 @@ export class Reaper extends Actor {
       width: sprite.width,
       height: sprite.height,
     });
-    engine.currentScene.add(this.menu);
+    engine.add(this.menu);
     this.menu.graphics.use(sprite);
 
     this.menu.on("pointerdown", (event: PointerEvent): void => {

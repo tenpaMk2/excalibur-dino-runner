@@ -1,12 +1,8 @@
 import {
-  BaseAlign,
   Color,
   Engine,
   Entity,
-  Font,
   ScreenElement,
-  Text,
-  TextAlign,
   Trigger,
   Vector,
 } from "excalibur";
@@ -52,7 +48,7 @@ export class Goal extends Trigger {
       anchor: Vector.Zero,
     });
     this.clearScreen.graphics.opacity = 0.2;
-    engine.currentScene.add(this.clearScreen);
+    engine.add(this.clearScreen);
 
     const sprite = Resources.clear.toSprite();
     this.clearMessage = new ScreenElement({
@@ -61,7 +57,7 @@ export class Goal extends Trigger {
     });
 
     this.clearMessage.graphics.use(sprite);
-    engine.currentScene.add(this.clearMessage);
+    engine.add(this.clearMessage);
   }
 
   private emitMenu(engine: Engine) {
@@ -73,7 +69,7 @@ export class Goal extends Trigger {
       width: sprite.width,
       height: sprite.height,
     });
-    engine.currentScene.add(this.menu);
+    engine.add(this.menu);
     this.menu.graphics.use(sprite);
 
     this.menu.on("pointerdown", (event: PointerEvent): void => {

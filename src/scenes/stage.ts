@@ -28,8 +28,8 @@ export class Stage extends Scene {
     super();
   }
 
-  onInitialize(_engine: Engine): void {
-    this.engine = _engine;
+  onInitialize(engine: Engine): void {
+    this.engine = engine;
 
     let stageResource: TiledMapResource;
     switch (this.stageNumber) {
@@ -58,29 +58,29 @@ export class Stage extends Scene {
       default:
         throw Error("invalid stage number!!");
     }
-    this.add(this.dino);
+    engine.add(this.dino);
 
-    this.tapUI = new TapUI(_engine);
+    this.tapUI = new TapUI(engine);
     this.tapUI.registerTapUpCallback(this.dino.jump);
 
     this.powerGauge = new PowerGauge();
-    this.add(this.powerGauge);
+    engine.add(this.powerGauge);
     this.powerGauge.registerGetProgressCallback(this.tapUI.getTimerProgress);
     this.dino.addChild(this.powerGauge);
 
-    this.initGoal(_engine, stageResource);
+    this.initGoal(engine, stageResource);
 
-    this.initUpperSpring(_engine, stageResource);
+    this.initUpperSpring(engine, stageResource);
 
     const tileWidth = stageResource.data.tileWidth;
     const mapHeight = stageResource.data.height;
 
     this.reaper = new Reaper(0, 0, tileWidth, mapHeight);
-    this.add(this.reaper);
+    engine.add(this.reaper);
     this.reaper.registerSlashCallback(this.dino.slashed);
 
-    this.resetter = new Resetter(_engine.drawWidth, 0);
-    this.add(this.resetter);
+    this.resetter = new Resetter(engine.drawWidth, 0);
+    engine.add(this.resetter);
     this.resetter.registerResetCallback(this.resetStage);
 
     this.camera.addStrategy(new LockCameraToActorStrategy(this.dino));
@@ -116,7 +116,7 @@ export class Stage extends Scene {
       goalObject.width,
       goalObject.height
     );
-    this.add(this.goal);
+    engine.add(this.goal);
   }
 
   initUpperSpring(engine: Engine, stageResource: TiledMapResource): void {
@@ -144,7 +144,7 @@ export class Stage extends Scene {
         springObject.width,
         springObject.height
       );
-      this.add(spring);
+      engine.add(spring);
     });
   }
 }

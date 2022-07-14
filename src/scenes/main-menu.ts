@@ -14,22 +14,22 @@ import { ResourceManager } from "../objects/resource-manager";
 import { Resources } from "../resource";
 
 export class MainMenu extends Scene {
-  onInitialize(_engine: Engine): void {
+  onInitialize(engine: Engine): void {
     const title = new Actor({
-      x: _engine.halfDrawWidth,
+      x: engine.halfDrawWidth,
       y: 100,
     });
-    _engine.currentScene.add(title);
+    engine.add(title);
     const image = ResourceManager.getTitleSprite();
     image.scale = new Vector(2, 2);
     title.graphics.use(image);
 
-    this.initDinos(_engine);
+    this.initDinos(engine);
 
-    this.initStage01(_engine);
-    this.initStage02(_engine);
+    this.initStage01(engine);
+    this.initStage02(engine);
 
-    this.initCredits(_engine);
+    this.initCredits(engine);
   }
 
   initDinos(engine: Engine) {
@@ -47,7 +47,7 @@ export class MainMenu extends Scene {
       x: 82 * 1 + 16,
       y: 200,
     });
-    engine.currentScene.add(dino);
+    engine.add(dino);
     dino.graphics.use(animation);
   }
 
@@ -59,7 +59,7 @@ export class MainMenu extends Scene {
       x: 82 * 2 + 16,
       y: 200,
     });
-    engine.currentScene.add(dino);
+    engine.add(dino);
     dino.graphics.use(animation);
   }
 
@@ -71,7 +71,7 @@ export class MainMenu extends Scene {
       x: 82 * 3 + 16,
       y: 200,
     });
-    engine.currentScene.add(dino);
+    engine.add(dino);
     dino.graphics.use(animation);
   }
 
@@ -83,7 +83,7 @@ export class MainMenu extends Scene {
       x: 82 * 4 + 16,
       y: 200,
     });
-    engine.currentScene.add(dino);
+    engine.add(dino);
     dino.graphics.use(animation);
   }
 
@@ -96,7 +96,7 @@ export class MainMenu extends Scene {
       height: sprite.height,
       collisionType: CollisionType.PreventCollision,
     });
-    engine.currentScene.add(stage);
+    engine.add(stage);
     stage.graphics.use(sprite);
 
     stage.on("pointerdown", (event: PointerEvent): void => {
@@ -113,7 +113,7 @@ export class MainMenu extends Scene {
       height: stage02Sprite.height,
       collisionType: CollisionType.PreventCollision,
     });
-    engine.currentScene.add(stage02);
+    engine.add(stage02);
     stage02.graphics.use(stage02Sprite);
 
     stage02.on("pointerdown", (event: PointerEvent): void => {
@@ -135,6 +135,6 @@ export class MainMenu extends Scene {
         }),
       })
     );
-    engine.currentScene.add(credits);
+    engine.add(credits);
   }
 }
