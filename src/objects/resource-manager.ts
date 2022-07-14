@@ -280,11 +280,11 @@ export class ResourceManager extends Actor {
     return ResourceManager.getMapchipSpriteSheet().getSprite(8, 3)!;
   }
 
-  static getUpperStretchedSpringSprite() {
+  static getUpStretchedSpringSprite() {
     return ResourceManager.getMapchipSpriteSheet().getSprite(7, 5)!;
   }
 
-  static getUpperOutstretchedSpringSprite() {
+  static getUpOutstretchedSpringSprite() {
     return ResourceManager.getMapchipSpriteSheet().getSprite(8, 5)!;
   }
 }

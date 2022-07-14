@@ -8,7 +8,7 @@ import {
 import config from "../config";
 import { ResourceManager } from "./resource-manager";
 
-export class UpperSpring extends Actor {
+export class UpSpring extends Actor {
   constructor(
     engine: Engine,
     x: number,
@@ -27,15 +27,15 @@ export class UpperSpring extends Actor {
   }
 
   onInitialize(engine: Engine): void {
-    const stretchedSprite = ResourceManager.getUpperStretchedSpringSprite();
+    const stretchedSprite = ResourceManager.getUpStretchedSpringSprite();
     this.graphics.use(stretchedSprite);
 
     this.on("collisionstart", (event: CollisionStartEvent): void => {
       const outstretchedSprite =
-        ResourceManager.getUpperOutstretchedSpringSprite();
+        ResourceManager.getUpOutstretchedSpringSprite();
       this.graphics.use(outstretchedSprite);
 
-      event.other.vel.y = -config.upperSpringVel;
+      event.other.vel.y = -config.upSpringVel;
 
       engine.clock.schedule(() => {
         this.graphics.use(stretchedSprite);

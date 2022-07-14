@@ -12,7 +12,7 @@ import { PowerGauge } from "../objects/power-gauge";
 import { Reaper } from "../objects/reaper";
 import { Resetter } from "../objects/resetter";
 import { TapUI } from "../objects/tap-ui";
-import { UpperSpring } from "../objects/upper-spring";
+import { UpSpring } from "../objects/up-spring";
 import { Resources } from "../resource";
 
 export class Stage extends Scene {
@@ -70,7 +70,7 @@ export class Stage extends Scene {
 
     this.initGoal(engine, stageResource);
 
-    this.initUpperSpring(engine, stageResource);
+    this.initUpSpring(engine, stageResource);
 
     const tileWidth = stageResource.data.tileWidth;
     const mapHeight = stageResource.data.height;
@@ -119,25 +119,25 @@ export class Stage extends Scene {
     engine.add(this.goal);
   }
 
-  initUpperSpring(engine: Engine, stageResource: TiledMapResource): void {
+  initUpSpring(engine: Engine, stageResource: TiledMapResource): void {
     const objects = stageResource.data.getExcaliburObjects();
-    const springObjects = objects[0]?.getObjectsByName("upper-spring");
+    const springObjects = objects[0]?.getObjectsByName("up-spring");
     if (!springObjects)
-      throw Error("cannot find the upper-spring object from `.tmx` .");
+      throw Error("cannot find the up-spring object from `.tmx` .");
 
     springObjects.forEach((springObject) => {
       if (!springObject.width) {
         throw Error(
-          "cannot find the width of the upper-spring object from `.tmx` ."
+          "cannot find the width of the up-spring object from `.tmx` ."
         );
       }
       if (!springObject.height) {
         throw Error(
-          "cannot find the height of the upper-spring object from `.tmx` ."
+          "cannot find the height of the up-spring object from `.tmx` ."
         );
       }
 
-      const spring = new UpperSpring(
+      const spring = new UpSpring(
         engine,
         springObject.x,
         springObject.y,

@@ -9,7 +9,7 @@ export default {
   dinoMaxXSpeed: 100,
   dinoJumpVel: 150,
   dinoMaxPowerTime: 1000,
-  upperSpringVel: 225,
+  upSpringVel: 225,
   zoom: 2,
   goalCol: 107,
   reaperStartTime: 1000,
