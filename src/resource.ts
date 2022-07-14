@@ -4,6 +4,7 @@ import { ImageSource, Sound } from "excalibur";
 export const Resources = {
   stage01Tmx: new TiledMapResource("./stage-01.tmx"),
   stage02Tmx: new TiledMapResource("./stage-02.tmx"),
+  stage03Tmx: new TiledMapResource("./stage-03.tmx"),
   doux: new ImageSource("./DinoSprites - doux.png"),
   mort: new ImageSource("./DinoSprites - mort.png"),
   tard: new ImageSource("./DinoSprites - tard.png"),

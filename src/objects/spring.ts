@@ -83,13 +83,7 @@ export class UpSpring extends Spring {
 
 export class RightSpring extends Spring {
   constructor(objX: number, objY: number, objWidth: number, objHeight: number) {
-    super(
-      objX + objWidth,
-      objY + objHeight / 2,
-      objWidth,
-      objHeight,
-      new Vector(1, 0.5)
-    );
+    super(objX, objY + objHeight / 2, objWidth, objHeight, new Vector(0, 0.5));
   }
 
   protected stretch() {
@@ -110,13 +104,7 @@ export class RightSpring extends Spring {
 
 export class DownSpring extends Spring {
   constructor(objX: number, objY: number, objWidth: number, objHeight: number) {
-    super(
-      objX + objWidth,
-      objY + objHeight / 2,
-      objWidth,
-      objHeight,
-      new Vector(1, 0.5)
-    );
+    super(objX + objWidth / 2, objY, objWidth, objHeight, new Vector(0.5, 0));
   }
 
   protected stretch() {

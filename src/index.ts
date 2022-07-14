@@ -18,6 +18,7 @@ engine.showDebug(false);
 engine.add("main-menu", new MainMenu());
 engine.add("stage-01", new Stage(1));
 engine.add("stage-02", new Stage(2));
+engine.add("stage-03", new Stage(3));
 engine.goToScene("main-menu");
 
 const loader = new Loader();

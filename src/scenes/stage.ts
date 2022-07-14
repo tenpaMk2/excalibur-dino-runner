@@ -46,6 +46,9 @@ export class Stage extends Scene {
       case 2:
         stageResource = Resources.stage02Tmx;
         break;
+      case 3:
+        stageResource = Resources.stage03Tmx;
+        break;
       default:
         throw Error("invalid stage number!!");
     }
@@ -61,6 +64,9 @@ export class Stage extends Scene {
         break;
       case 2:
         this.dino = new Dino(30, 200, "tard");
+        break;
+      case 3:
+        this.dino = new Dino(30, 200, "doux");
         break;
       default:
         throw Error("invalid stage number!!");

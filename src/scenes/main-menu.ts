@@ -28,6 +28,7 @@ export class MainMenu extends Scene {
 
     this.initStage01(engine);
     this.initStage02(engine);
+    this.initStage03(engine);
 
     this.initCredits(engine);
   }
@@ -118,6 +119,23 @@ export class MainMenu extends Scene {
 
     stage02.on("pointerdown", (event: PointerEvent): void => {
       engine.goToScene("stage-02");
+    });
+  }
+
+  initStage03(engine: Engine) {
+    const stage03Sprite = Resources.stage03.toSprite();
+    const stage03 = new Actor({
+      x: engine.halfDrawWidth,
+      y: 400,
+      width: stage03Sprite.width,
+      height: stage03Sprite.height,
+      collisionType: CollisionType.PreventCollision,
+    });
+    engine.add(stage03);
+    stage03.graphics.use(stage03Sprite);
+
+    stage03.on("pointerdown", (event: PointerEvent): void => {
+      engine.goToScene("stage-03");
     });
   }
 
