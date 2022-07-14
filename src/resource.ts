@@ -14,6 +14,7 @@ export const Resources = {
   dinoBlockedSound: new Sound("./error_004.ogg"),
   dinoSlashedSound: new Sound("./minimize_005.ogg"),
   clearSound: new Sound("./confirmation_002.ogg"),
+  springSound: new Sound("./maximize_009.ogg"),
   mapchip: new ImageSource("./tiles_packed.png"),
   title: new ImageSource("./title.png"),
   menu: new ImageSource("./menu.png"),

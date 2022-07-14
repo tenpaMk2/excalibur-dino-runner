@@ -6,6 +6,7 @@ import {
   Vector,
 } from "excalibur";
 import config from "../config";
+import { Resources } from "../resource";
 import { Dino } from "./dino";
 import { ResourceManager } from "./resource-manager";
 
@@ -35,6 +36,10 @@ class Spring extends Actor {
 
       this.outstretch();
       this.bounce(event.other);
+
+      if (!Resources.springSound.isPlaying()) {
+        Resources.springSound.play();
+      }
 
       engine.clock.schedule(() => {
         this.stretch();
