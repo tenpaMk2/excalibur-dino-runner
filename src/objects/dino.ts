@@ -1,7 +1,6 @@
 import {
   Actor,
   Animation,
-  CollisionGroupManager,
   CollisionType,
   Engine,
   PostCollisionEvent,
@@ -87,8 +86,13 @@ export class Dino extends Actor {
   }
 
   onPreUpdate(engine: Engine): void {
-    this.vel.x =
-      this.vel.x < config.dinoMaxXSpeed ? this.vel.x : config.dinoMaxXSpeed;
+    if (this.isSlashed()) return;
+
+    if (this.vel.x < config.dinoMaxXSpeed) {
+      this.acc.x = config.dinoXAcc;
+    } else {
+      this.acc.x = 0;
+    }
 
     this.canJumpPreviousFrame = this.canJump();
     this.isBlockedPreviousFrame = this.isBlocked();
